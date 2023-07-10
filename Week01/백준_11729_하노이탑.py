@@ -14,5 +14,5 @@ def hanoi(n, start, end, serve):
         hanoi(n-1, serve, end, start)
 
 
-print(2**n-1)  # K를 하나씩 더하는 방법은?
+print(2**n-1)  # K를 하나씩 더하는 방법은? 리스트로(?)
 hanoi(n, start, end, serve)
