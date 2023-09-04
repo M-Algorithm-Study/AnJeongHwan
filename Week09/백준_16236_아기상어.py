@@ -7,7 +7,7 @@ input = sys.stdin.readline
 # 크면 이동 x, 같은 크기 먹을수 x 지만 지나감 o
 # 작으면 먹기
 # 더이상 못먹으면 도움 요청(끝)
-# 1마리면 먹으러 감z
+# 1마리면 먹으러 감
 # 1마리보다 많으면 거리 가까운 칸 먹으러
 # 거리는 최솟값, 가까운 물고기 많으면 가장 위 > 가장 왼쪽 순
 
@@ -22,7 +22,7 @@ for i in range(n):
         j = temp.index(9)
         start = (i, j)
     space.append(temp)
-print(start)
+# print(start)
 # print(space)
 
 # start
@@ -44,7 +44,6 @@ def bfs(start, space, size):
         for i in range(4):
             nx, ny = x + dx[i], y + dy[i]
             if 0 <= nx < n and 0 <= ny < n and visited[nx][ny] == 0:
-                print(1)
                 if space[nx][ny] <= size:  # 사이즈 같을 때는 안먹지만 지나가니까 거리가 필요
                     q.append((nx, ny))
                     visited[nx][ny] = 1
@@ -53,7 +52,8 @@ def bfs(start, space, size):
                     if 0 < space[nx][ny] < size:
                         targets.append((nx, ny, distance[nx][ny]))
 
-    return sorted(targets, key=lambda x: (-x[2], -x[0], -x[1]))  # ㅠㅠ
+    # ㅠㅠ 거리>
+    return sorted(targets, key=lambda x: (-x[2], -x[0], -x[1]))
 
 
 cnt = 0  # 상어가 먹은 물고기의 수(자신의 크기만큼 먹으면 커짐)
@@ -61,7 +61,7 @@ time = 0
 while True:
     shark = bfs(start, space, size)
     # 먹을 수 있는 물고기 있는지 파악
-    if len(shark) == 0:
+    if len(shark) == 0:  # 완전탐색 할 뻔
         break
 
     # 정렬된 결과를 반영해주면서 먹을 물고기 선택
@@ -76,3 +76,61 @@ while True:
         size += 1
         cnt = 0
 print(time)
+
+# import sys
+# from collections import deque
+
+# sys.stdin = open("input.txt", "r")
+# input = sys.stdin.readline
+
+# n = int(input())
+# space = []
+# for i in range(n):
+#     temp = list(map(int, input().split()))
+#     if 9 in temp:
+#         j = temp.index(9)
+#         start = (i, j)
+#     space.append(temp)
+
+# dx = [0, 0, -1, 1]
+# dy = [-1, 1, 0, 0]
+# size = 2
+
+# def bfs(start, space, size):
+#     q = deque()
+#     q.append(start)
+
+#     distance = [[0] * n for _ in range(n)]
+#     visited = [[0] * n for _ in range(n)]
+#     targets = []
+#     while q:
+#         x, y = q.popleft()
+#         visited[x][y] = 1
+#         for i in range(4):
+#             nx, ny = x + dx[i], y + dy[i]
+#             if 0 <= nx < n and 0 <= ny < n and visited[nx][ny] == 0:
+#                 if space[nx][ny] <= size:
+#                     q.append((nx, ny))
+#                     visited[nx][ny] = 1
+#                     distance[nx][ny] = distance[x][y] + 1
+#                     if 0 < space[nx][ny] < size:
+#                         targets.append((nx, ny, distance[nx][ny]))
+
+#     return sorted(targets, key=lambda x: (-x[2], -x[0], -x[1]))
+
+# cnt = 0
+# time = 0
+# while True:
+#     shark = bfs(start, space, size)
+#     if len(shark) == 0:
+#         break
+#     nx, ny, dist = shark.pop()
+
+#     time += dist
+#     space[start[0]][start[1]], space[nx][ny] = 0, 0
+#     start = (nx, ny)  # 아기 상어의 위치를 업데이트
+#     cnt += 1
+#     if cnt == size:
+#         size += 1
+#         cnt = 0
+# print(time)
