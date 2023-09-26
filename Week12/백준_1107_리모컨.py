@@ -7,7 +7,7 @@ buttons = list(map(int, input().split()))  # 고장난 버튼
 # 현재 채널에서 + 혹은 -만 사용하여 이동하는 경우
 min_count = abs(100 - N)
 
-for nums in range(1000001):
+for nums in range(1000001):  # N (0 ≤ N ≤ 500,000)
     str_nums = str(nums)
 
     for j in range(len(str_nums)):
@@ -17,8 +17,7 @@ for nums in range(1000001):
 
         # 고장난 숫자 없이 마지막 자리까지 왔다면 min_count 비교 후 업데이트
         elif j == len(str_nums) - 1:
-            min_count = min(min_count, abs(
-                int(str_nums) - N) + len(str_nums))
+            min_count = min(min_count, abs(int(str_nums) - N) + len(str_nums))
 
 print(min_count)
 
