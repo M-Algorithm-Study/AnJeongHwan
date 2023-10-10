@@ -15,15 +15,15 @@ while left != right:
     mid = (left + right) // 2
 
     # 중간 지점에서 만들어지는 조각의 수를 계산
-    data = (mid + 1) * (n - mid + 1)
+    pieces = (mid + 1) * (n - mid + 1)
 
     # 조각의 수와 목표 조각의 수 k를 비교
-    if data == k:
+    if pieces == k:
         # 조건이 충족되면 flag를 True로 설정하고 반복을 종료
         flag = True
         break
 
-    elif data > k:
+    elif pieces > k:
         # 중간 지점에서 만들어지는 조각의 수가 목표보다 크다면,
         # 오른쪽 경계를 중간 지점 앞으로 이동
         right = mid
